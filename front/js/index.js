@@ -29,7 +29,7 @@ return fetch("http://localhost:3000/api/products")
 
 function displayProduct(product) {
   document.getElementById("items").innerHTML += ` <article>
-              <img src="${product.imageUrl}" alt="${product.atlTxt}">
+              <a href="./front/html/product.html"><img src="${product.imageUrl}" alt="${product.altTxt}">
               <h3 class="productName">"${product.name}"</h3>
               <p class="productDescription">"${product.description}"</p>
             </article>       
