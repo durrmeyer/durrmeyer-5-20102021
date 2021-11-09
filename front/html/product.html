@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>Nom du produit</title>
+    <title>Article</title>
 
     <meta charset="utf-8" />
     <meta name="description" content="Plateforme incroyable de e-commerce" />
@@ -49,7 +49,7 @@
       </div>
       <div class="limitedWidthBlockContainer menu">
         <div class="limitedWidthBlock">
-          <a href="./index.html">
+          <a href="/index.html">
             <img
               class="logo"
               src="../images/logo.png"
@@ -68,7 +68,7 @@
           </nav>
         </div>
       </div>
-      <img class="banniere" src="../images/banniere.png" alt="Baniere" />
+      <img class="banniere" src="../images/banniere.png" alt="Banniere" />
     </header>
 
     <main class="limitedWidthBlockContainer">
@@ -95,7 +95,7 @@
 
               <div class="item__content__settings">
                 <div class="item__content__settings__color">
-                  <label for="color-select">Choisir une couleur :</label>
+                  <label class="color-select">Choisir une couleur :</label>
                   <select name="color-select" id="colors">
                     <option value="">--SVP, choisissez une couleur --</option>
                     <!--                       <option value="vert">vert</option>
@@ -104,9 +104,7 @@
                 </div>
 
                 <div class="item__content__settings__quantity">
-                  <label for="itemQuantity"
-                    >Nombre d'article(s) (1-100) :</label
-                  >
+                  <label id="itemQuantity">Nombre d'article(s) (1-100) :</label>
                   <input
                     type="number"
                     name="itemQuantity"
@@ -152,12 +150,12 @@
         <div class="limitedWidthBlock">
           <p>
             © Copyright 2021 - 2042 | Openclassrooms by Openclassrooms | All
-            Rights Reserved | Powered by <3
+            Rights Reserved | Powered by
           </p>
         </div>
       </div>
     </footer>
 
-    <script src="../js/product.js"></script>
+    <script src="/front/js/product.js"></script>
   </body>
 </html>

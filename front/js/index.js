@@ -2,6 +2,8 @@
  * Gère l'affichage des produits 
  */
 
+
+
 items()
 
  async function items() {
@@ -29,45 +31,13 @@ return fetch("http://localhost:3000/api/products")
 
 function displayProduct(product) {
   document.getElementById("items").innerHTML += ` <article>
-              <a href="./front/html/product.html"><img src="${product.imageUrl}" alt="${product.altTxt}">
+              <a id="${product.id} "href="./front/html/product.html?${product._id}">
+              <img src="${product.imageUrl}" alt="${product.altTxt}">
               <h3 class="productName">"${product.name}"</h3>
               <p class="productDescription">"${product.description}"</p>
+  </a>
             </article>       
-               `
-  
+             `
+
 }
 
-/**let productData = [];
-
-const fetchProduct = async () => {
-    await fetch("http://localhost:3000/api/products")
-    .then((response) => response.json())
-    .then ((json) => { productData = json
-  });
-    
-};
-console.log(productData)
-/**
- * afficher les produits dans la page d'accueil
- */
-
- /** const productDisplay = async () => {
-    await fetchProduct();
-    
-    document.querySelector(".items").innerHTML += ` <article>
-              <img src="${productData.imageUrl}" alt="${productData.atlTxt}">
-              <h3 class="productName">"${productData.name}"</h3>
-              <p class="productDescription">"${productData.description}"</p>
-            </article>
-          
-   `
-  
-};
-
-fetchProduct();*/
-
-
- 
-         
-            
- 

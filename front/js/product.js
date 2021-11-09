@@ -1,14 +1,21 @@
-// afficher le produit//
+// Récuprération de la requête dans l'URL//
+const queryString_url_id = window.location.search;
+console.log(queryString_url_id);
 
-/* déclaration de la variable*/ 
-let _id = [];
-let name = [];
-let colors = [];
-let price = [];
-let description = [];
-let imageUrl = [];
-let altTxt = [];
+//extraire l'id avec slice pour enlever le ?//
 
-// fonction pour afficher 
+const _id = queryString_url_id.slice(1);
+console.log(_id);
 
-document.getElementById("title").innerHTML += `   <h3 class="productName">"${id}"</h3>`
+//affiche le produit selectionné//
+console.log(products);
+
+const idProduct = products.find((element) => element._id === _id);
+console.log(idProduct);
+
+//
+
+function displayArticle(product) {
+    Document.querySelector("item").innerHTML = ``
+
+};
