@@ -4,13 +4,10 @@ console.log(queryString_url_id);
 
 //extraire l'id avec slice pour enlever le ?//
 
-const _id = queryString_url_id.slice(1);
-console.log(_id);
+const product_ID = queryString_url_id.slice(4);
+console.log(product_ID);
 
 //affiche le produit selectionné//
 
-
-const idProduct = products.find((element) => element._id === _id);
-console.log(idProduct);
-
-//
+/*const article = product.find((Element) => Element._id === "_id");
+console.log(article);*/
