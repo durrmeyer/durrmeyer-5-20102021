@@ -144,9 +144,8 @@ main {
   border-radius: 10px;
 }
 .items article img {
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
+  width: 335px;
+  height: 260px;
   border-radius: 10px;
 }
 .items article h3 {
