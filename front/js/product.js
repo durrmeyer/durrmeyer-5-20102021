@@ -15,6 +15,7 @@ async function getProduct(id) {
  * affiche le produit dans la page produit
  */
 getProduct(id).then((product) => {
+  product._id = id;
   document.querySelector(
     "#imageUrl"
   ).innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
@@ -44,6 +45,7 @@ button_envoyer.addEventListener("click", (event) => {
   // récuperer les valeurs du produit//
 
   const optionProduct = {
+  
     imageUrl: document.querySelector("#imageUrl").innerHTML,
     title: document.querySelector("#title").innerText,
     price: document.querySelector("#price").innerText,
@@ -52,21 +54,19 @@ button_envoyer.addEventListener("click", (event) => {
     quantity: optionQuantite.value,
   };
 
-  //-----------------------------------redirection--------------------------------------------------------//
-  //--------------------------------------message---------------------------------------------------------//
-
   //---------------------------------- enregistrement dans le local Storage-------------------------------//
-  let panier = JSON.parse(localStorage.getItem(optionProduct));
+  let panierArticle = JSON.parse(localStorage.getItem("panier"));
 
-  const articlePanier = () => {
-    panier.push(optionProduct);
-    localStorage.setItem([id, optionColor.value], JSON.stringify(panier));
-  };
-  if (panier) {
-    articlePanier();
+  if (panierArticle) {
+    panierArticle.push(optionProduct);
+    localStorage.setItem("panier", JSON.stringify(panierArticle));
   } else {
-    panier = [id];
-    articlePanier();
+    panierArticle = [];
+    console.log(panierArticle);
+
+    panierArticle.push(optionProduct);
+    localStorage.setItem("panier", JSON.stringify(panierArticle));
   }
-  console.log(panier);
+
+  window.location.assign("cart.html");
 });

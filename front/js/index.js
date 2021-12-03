@@ -16,14 +16,13 @@ getProduct("products").then((product) => {
     products.innerHTML += ` <article>
               <a id="${product[i]._id}" href="./front/html/product.html?id=${product[i]._id}"> 
                 <img src="${product[i].imageUrl}" alt="${product[i].altTxt}">
-                <h3 class="productName">"${product[i].name}"</h3>
+                <h3 class="productName">${product[i].name}</h3>
                  <p>
-                  Prix : <span id="price">"${product[i].price}"</span>€
+                  Prix : <span id="price">${product[i].price}</span>€
                 </p>
-                <p class="productDescription">"${product[i].description}"</p>
+                <p class="productDescription">${product[i].description}</p>
              </a>
             </article>       
              `;
   }
-  console.log(product);
 });
