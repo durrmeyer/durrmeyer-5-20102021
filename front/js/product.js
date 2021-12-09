@@ -15,7 +15,7 @@ async function getProduct(id) {
  * affiche le produit dans la page produit
  */
 getProduct(id).then((product) => {
-  product._id = id;
+ 
   document.querySelector(
     "#imageUrl"
   ).innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
@@ -33,6 +33,7 @@ getProduct(id).then((product) => {
     option.innerText = color;
     selectColors.appendChild(option);
   }
+  console.log(selectColors);
 });
 //-------------------------------------- choix de la quantité----------------------------------------------//
 const optionQuantite = document.querySelector("#quantity");
@@ -42,31 +43,47 @@ const optionColor = document.querySelector("#colors");
 const button_envoyer = document.querySelector("#addToCart");
 button_envoyer.addEventListener("click", (event) => {
   event.preventDefault();
+
   // récuperer les valeurs du produit//
 
   const optionProduct = {
-  
+    id: id,
     imageUrl: document.querySelector("#imageUrl").innerHTML,
-    title: document.querySelector("#title").innerText,
-    price: document.querySelector("#price").innerText,
-    description: document.querySelector("#description").innerText,
+    name: document.querySelector("#title").innerText,
+    price: parseInt(document.querySelector("#price").innerText),
     color: optionColor.value,
-    quantity: optionQuantite.value,
+    quantity: parseInt(optionQuantite.value),
   };
-
+  console.log(optionProduct);
   //---------------------------------- enregistrement dans le local Storage-------------------------------//
   let panierArticle = JSON.parse(localStorage.getItem("panier"));
-
-  if (panierArticle) {
-    panierArticle.push(optionProduct);
-    localStorage.setItem("panier", JSON.stringify(panierArticle));
-  } else {
-    panierArticle = [];
+  let articleTouve = false;
+  
+  if (panierArticle == null) {
+   panierArticle = [];
     console.log(panierArticle);
+  } else {  
+    for (let i in panierArticle) {
+      console.log("ma boucle:" + panierArticle[i].name); console.log(id + optionProduct.color);
+//---------------------------------------produit identique trouvé alors on met à jour la quantité-----------//
+      if ((panierArticle[i].id === id) && (panierArticle[i].color === optionProduct.color)) {
+        panierArticle[i].quantity = panierArticle[i].quantity + optionProduct.quantity;
+        articleTouve = true;
+        console.log("ok");
+      } else {
+       
+      };
 
-    panierArticle.push(optionProduct);
-    localStorage.setItem("panier", JSON.stringify(panierArticle));
-  }
+    };
+  
+  };
 
-  window.location.assign("cart.html");
+  //-----------------------------------------mettre à jour le panier-------------------------------//
+  if (articleTouve == false) { panierArticle.push(optionProduct)};
+  localStorage.setItem("panier", JSON.stringify(panierArticle));
+      window.location.assign("cart.html");
 });
+
+ 
+
+

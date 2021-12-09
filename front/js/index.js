@@ -2,7 +2,7 @@
  * Gère l'affichage des produits
  */
 
-async function getProduct(products) {
+async function getProduct(product) {
   let response = await fetch(`http://localhost:3000/api/products`);
   let data = await response.json();
   return data;
