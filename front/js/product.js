@@ -54,14 +54,16 @@ button_envoyer.addEventListener("click", (event) => {
     color: optionColor.value,
     quantity: parseInt(optionQuantite.value),
   };
-  console.log(optionProduct);
-  //---------------------------------- enregistrement dans le local Storage-------------------------------//
+ //---------------------------------- enregistrement dans le local Storage-------------------------------//
+  
+  
   let panierArticle = JSON.parse(localStorage.getItem("panier"));
+  
   let articleTouve = false;
   
   if (panierArticle == null) {
    panierArticle = [];
-    console.log(panierArticle);
+  
   } else {  
     for (let i in panierArticle) {
       console.log("ma boucle:" + panierArticle[i].name); console.log(id + optionProduct.color);
@@ -83,7 +85,17 @@ button_envoyer.addEventListener("click", (event) => {
   localStorage.setItem("panier", JSON.stringify(panierArticle));
       window.location.assign("cart.html");
 });
-
+  
+  
+ 
+  
+ 
+  
+    
+  
+  
+ 
+  
  
 
 
