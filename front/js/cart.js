@@ -51,7 +51,7 @@ for (let i = 0; i < boutons.length; i++) {
 		event.preventDefault();
 		const panierArticle = JSON.parse(localStorage.getItem('panier'));
 
-		if ((panierArticle.id === panierArticle.id && panierArticle.color) === panierArticle.color) {
+		if (panierArticle.id === panierArticle.id && panierArticle.color === panierArticle.color) {
 			panierArticle.splice(i, 1);
 			localStorage.setItem('panier', JSON.stringify(panierArticle));
 		} else {
@@ -61,15 +61,20 @@ for (let i = 0; i < boutons.length; i++) {
 	});
 }
 
-//---------------------------------------------------bouton mofification du nombre d'articles------------------------//
-let choixArticles = document.querySelectorAll('.itemQuantity');
+//--------------------------------------------------- mofification du nombre d'articles------------------------//
 
-console.log(choixArticles);
+const choixArticles = document.querySelectorAll('.itemQuantity');
+const article = document.querySelectorAll('input[type =number]');
+console.log(article);
 for (let i = 0; i < choixArticles.length; i++) {
-	choixArticles[i].addEventListener('change', () => {
-		let article = document.querySelector('itemQuantite');
+	choixArticles[i].addEventListener('change', (event) => {
+		event.preventDefault();
+		const panierArticle = JSON.parse(localStorage.getItem('panier'));
+		article[i].setAttribute('value', article[i].value);
+		panierArticle[i].quantity = article[i].value;
+		localStorage.setItem('panier', JSON.stringify(panierArticle));
 
-		console.log(article, 'ici');
+		console.log(article[i]);
 	});
 }
 
@@ -78,19 +83,24 @@ let totalPanier = [];
 let totalArticle = [];
 
 const total = document.getElementById('totalPrice');
+const quantite = document.getElementById('totalQuantity');
 
 for (let p = 0; p < panierArticle.length; p++) {
-	let prixArticle = panierArticle[p].price * panierArticle[p].quantity;
+	let quantiteArticle = panierArticle[p].quantity++;
 
-	let quantiteArticle = panierArticle[p].quantity;
-
-	totalPanier.push(prixArticle);
 	totalArticle.push(quantiteArticle);
+	console.log(totalArticle);
+
+	let prixArticle = panierArticle[p].price * quantiteArticle;
+	console.log(prixArticle);
+	totalPanier.push(prixArticle);
 }
 
 //------------------------------------------sommes total du panier-----------------------------------------------//
 const prixTotal = totalPanier.reduce((acc, x) => acc + x);
+
 const articleTotal = totalArticle.reduce((acc, x) => acc + x);
+
 const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
 const somme = totalPanier.reduce(reducer, 0);
@@ -103,37 +113,3 @@ total.innerHTML = `
              </p>
            </div>
      `;
-
-//---------------------formulaire---------------------------------------//
-
-let prenom = document.getElementById('#firstName');
-let nom = document.getElementById('lastName');
-let adresse = document.getElementById('adress');
-let ville = document.getElementById('city');
-let email = document.getElementById('email');
-let messageErreur = document.getElementById('firstNameErrorMsg');
-
-const commander = document.getElementById('order');
-
-let formulaire = document.querySelector('.cart__order__form');
-console.log(formulaire);
-
-const validationprenom = function(prenom) {
-	let prenomRegExp = new RegExp("^[w'-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[]]{2,}$");
-};
-
-//------------------------------validation email--------------------//
-email.addEventListener('change', function() {
-	validationEmail(this);
-});
-
-const validationEmail = function(email) {
-	let emailRegExp = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
-	let testEmail = emailRegExp.test(email.value);
-	let p = email.nextElementSibling;
-	if (testEmail) {
-		p.innerHTML = `adresse valide`;
-	} else {
-		p.innerHTML = `adresse non valide`;
-	}
-};
