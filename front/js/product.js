@@ -54,9 +54,10 @@ button_envoyer.addEventListener('click', (event) => {
 
 	let panierArticle = JSON.parse(localStorage.getItem('panier'));
 
-	let articleTrouve = false;
+	let articleTrouve = true;
 
 	if (panierArticle == null) {
+		console.log("votre panier est vide");
 		panierArticle = [];
 	} else {
 		for (let i in panierArticle) {
@@ -70,7 +71,7 @@ button_envoyer.addEventListener('click', (event) => {
 	}
 
 	//-----------------------------------------mettre à jour le panier-------------------------------//
-	if (articleTrouve == false) {
+	if (articleTrouve == true ) {
 		panierArticle.push(optionProduct);
 	}
 	localStorage.setItem('panier', JSON.stringify(panierArticle));

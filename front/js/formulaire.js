@@ -113,33 +113,45 @@ boutonValidation.addEventListener('click', () => {
 	localStorage.setItem('client', JSON.stringify(client));
 
 
-	//--------------------------confirmation par client-------------------------//
-	order = {
+	//--------------------------récupération des ou des ID-------------------------//
+
+	let idCommande = [];
+        for (let i = 0; i < panierArticle.length; i++) {
+          idCommande [i] = panierArticle[i].id
+	}
+	console.log(idCommande);
+	
+	const order = {
 		contact: {
 			firstName: "prenom",
 			lastName: "nom",
 			address: "adresse",
 			city: "ville",
-			email: "email",
-		
+			email: "email"
 		},
 		
-		products: panierArticle,
-		
-	}
+  		products: idCommande,
+			}
+				
+		console.log(order),	
 	fetch('http://localhost:3000/api/products/order', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(order)
+		body: JSON.stringify(order),
+
 	})
-		.then((Response) => {
-			return Response.json();
+		.then((response) => {
+			return response.json();
 		})
 		.then((data) => {
 			console.log(data)
-	 	});
+			localStorage.setItem('idCommande', data.orderId);
+			 localStorage.clear();
+			 document.location.href = "confirmation.html";
+		})
+	 
 });
 	
 
@@ -147,14 +159,7 @@ boutonValidation.addEventListener('click', () => {
 	
 
 	
-        
-         /*   console.log(data);*/
-          
-
-        /*document.location.href = "confirmation.html";*/
-     /*      .catch((err) => {
-            alert ("Problème avec fetch : " + err.message);*/
-    
+       
 		
 
 	
