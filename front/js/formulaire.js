@@ -1,22 +1,22 @@
 //-------------------------------formulaire----------------------------------//
-let formulaire = document.querySelector('.cart__order__form');
-let messageErreur = document.getElementById('firstNameErrorMsg');
+const formulaire = document.querySelector('.cart__order__form');
 
 //----------------------------validation prenom----------------------------//
 let prenom = document.getElementById('firstName');
 prenom.addEventListener('change', function() {
 	validationPrenom(this);
 });
-
 function validationPrenom() {
 	let prenomRegExp = /^[a-zA-Z\-]{2,20}$/;
 	let testPrenom = prenomRegExp.test(prenom.value);
 	console.log(testPrenom);
 	let p = prenom.nextElementSibling;
-	if (testPrenom == true) {
-		p.innerHTML = ` valide`;
+	if (testPrenom == '') {
+		p.innerHTML = ` non valide`;
+		return false;
 	} else {
-		p.innerHTML = `non valide`;
+		p.innerHTML = `valide`;
+		return true;
 	}
 }
 //------------------------validation Nom----------------------------//
@@ -30,10 +30,10 @@ function validationNom() {
 	let testNom = nomRegExp.test(nom.value);
 	console.log(testNom);
 	let p = nom.nextElementSibling;
-	if (testNom == true) {
-		p.innerHTML = ` valide`;
+	if (testNom == '') {
+		p.innerHTML = ` non valide`;
 	} else {
-		p.innerHTML = `non valide`;
+		p.innerHTML = `valide`;
 	}
 }
 //------------------------------validation adresse--------------------/
@@ -47,10 +47,10 @@ function validationAdresse() {
 	let testAdresse = adresseRegExp.test(adresse.value);
 	console.log(testAdresse);
 	let p = adresse.nextElementSibling;
-	if (testAdresse) {
-		p.innerHTML = `valide`;
-	} else {
+	if (testAdresse == '') {
 		p.innerHTML = `non valide`;
+	} else {
+		p.innerHTML = `valide`;
 	}
 }
 
@@ -63,49 +63,106 @@ ville.addEventListener('change', function() {
 const validationVille = function(ville) {
 	let villeRegExp = /^[A-Za-z\s-]{2,40}$/;
 	let testVille = villeRegExp.test(ville.value);
+	console.log(testVille);
 	let p = ville.nextElementSibling;
-	if (testVille) {
-		p.innerHTML = ` valide`;
+	if (testVille == '') {
+		p.innerHTML = `non valide`;
 	} else {
-		p.innerHTML = ` non valide`;
+		p.innerHTML = `valide`;
 	}
 };
-//------------------------------validation email--------------------//
 
+//------------------------------validation email--------------------//
 let email = document.getElementById('email');
-email.addEventListener('change', function() {
-	validationEmail(this);
+ville.addEventListener('change', function() {
+	validationVille(this);
 });
 
 const validationEmail = function(email) {
-	let emailRegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	let emailRegExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 	let testEmail = emailRegExp.test(email.value);
+	console.log(testEmail);
 	let p = email.nextElementSibling;
-	if (testEmail) {
-		p.innerHTML = `email valide`;
-	} else {
+	if (testEmail == '') {
+	
 		p.innerHTML = `email non valide`;
+	} else {
+			testEmail.disabled='true';
+		p.innerHTML = `email valide`;
 	}
 };
 
 //-------------------------envoi du formulaire----------------------------//
 
-const validation = document.getElementById('order');
+const boutonValidation = document.querySelector('#order');
 
-validation.addEventListener('click', (event) => {
-	for (let i = 0; i < commander.length; i++) {
-		event.preventDefault();
-		if (nom.value == true) {
-		}
-	}
+boutonValidation.addEventListener('click', () => {
+
+	//--------------------------envoi dans le localStorage---------------------//
 	const client = {
-		prenom: document.getElementById('firstName').value,
-		nom: document.getElementById('lastName').value,
-		adresse: document.getElementById('address').value,
-		ville: document.getElementById('city').value,
-		email: document.getElementById('email').value
+		prenom: document.querySelector('#firstName').value,
+		nom: document.querySelector('#lastName').value,
+		adresse: document.querySelector('#address').value,
+		ville: document.querySelector('#city').value,
+		email: document.querySelector('#email').value
 	};
+
+
+
 	//----------------------------mettre le formulaire dans le localStorage-------------------//
 	localStorage.setItem('client', JSON.stringify(client));
-	/*window.location.assign('confirmation.html');*/
+
+
+	//--------------------------confirmation par client-------------------------//
+	order = {
+		contact: {
+			firstName: "prenom",
+			lastName: "nom",
+			address: "adresse",
+			city: "ville",
+			email: "email",
+		
+		},
+		
+		products: panierArticle,
+		
+	}
+	fetch('http://localhost:3000/api/products/order', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(order)
+	})
+		.then((Response) => {
+			return Response.json();
+		})
+		.then((data) => {
+			console.log(data)
+	 	});
 });
+	
+
+
+	
+
+	
+        
+         /*   console.log(data);*/
+          
+
+        /*document.location.href = "confirmation.html";*/
+     /*      .catch((err) => {
+            alert ("Problème avec fetch : " + err.message);*/
+    
+		
+
+	
+        
+
+		
+
+	
+	
+	
+

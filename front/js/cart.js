@@ -65,7 +65,7 @@ for (let i = 0; i < boutons.length; i++) {
 
 const choixArticles = document.querySelectorAll('.itemQuantity');
 const article = document.querySelectorAll('input[type =number]');
-console.log(article);
+
 for (let i = 0; i < choixArticles.length; i++) {
 	choixArticles[i].addEventListener('change', (event) => {
 		event.preventDefault();
@@ -89,10 +89,9 @@ for (let p = 0; p < panierArticle.length; p++) {
 	let quantiteArticle = panierArticle[p].quantity++;
 
 	totalArticle.push(quantiteArticle);
-	console.log(totalArticle);
 
 	let prixArticle = panierArticle[p].price * quantiteArticle;
-	console.log(prixArticle);
+
 	totalPanier.push(prixArticle);
 }
 

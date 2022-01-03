@@ -11,9 +11,8 @@ async function getProduct(id) {
 	return await response.json();
 }
 
-/**
- * affiche le produit dans la page produit
- */
+/*** affiche le produit dans la page produit ***/
+
 getProduct(id).then((product) => {
 	document.querySelector('#imageUrl').innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
 
