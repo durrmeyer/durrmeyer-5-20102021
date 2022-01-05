@@ -1,9 +1,13 @@
 //---------------------------------- recupération dans le local Storage----------------------------
 const panierArticle = JSON.parse(localStorage.getItem('panier'));
+const articles = document.querySelector('#cart__items');
 
 if (panierArticle === null) {
+	articles.innerHTML = `
+			<p> Votre panier est vide </p>
+    		`;
+	console.log(articles);
 } else {
-	let articles = document.querySelector('#cart__items');
 	//----------------------------------Affichage des produits selectionnés-----------------------------//
 	for (let i = 0; i < panierArticle.length; i++) {
 		articles.innerHTML += `

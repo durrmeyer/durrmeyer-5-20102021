@@ -1,6 +1,5 @@
 //-------------------------------formulaire----------------------------------//
 const formulaire = document.querySelector('.cart__order__form');
-
 //----------------------------validation prenom----------------------------//
 let prenom = document.getElementById('firstName');
 prenom.addEventListener('change', function() {
@@ -13,10 +12,8 @@ function validationPrenom() {
 	let p = prenom.nextElementSibling;
 	if (testPrenom == '') {
 		p.innerHTML = ` non valide`;
-		return false;
 	} else {
 		p.innerHTML = `valide`;
-		return true;
 	}
 }
 //------------------------validation Nom----------------------------//
@@ -84,10 +81,8 @@ const validationEmail = function(email) {
 	console.log(testEmail);
 	let p = email.nextElementSibling;
 	if (testEmail == '') {
-	
 		p.innerHTML = `email non valide`;
 	} else {
-			testEmail.disabled='true';
 		p.innerHTML = `email valide`;
 	}
 };
@@ -96,8 +91,7 @@ const validationEmail = function(email) {
 
 const boutonValidation = document.querySelector('#order');
 
-boutonValidation.addEventListener('click', () => {
-
+boutonValidation.addEventListener('click', (event) => {
 	//--------------------------envoi dans le localStorage---------------------//
 	const client = {
 		prenom: document.querySelector('#firstName').value,
@@ -106,68 +100,49 @@ boutonValidation.addEventListener('click', () => {
 		ville: document.querySelector('#city').value,
 		email: document.querySelector('#email').value
 	};
-
-
-
+	event.preventDefault();
 	//----------------------------mettre le formulaire dans le localStorage-------------------//
 	localStorage.setItem('client', JSON.stringify(client));
 
-
-	//--------------------------récupération des ou des ID-------------------------//
+	//--------------------------récupération du ou des ID-------------------------//
 
 	let idCommande = [];
-        for (let i = 0; i < panierArticle.length; i++) {
-          idCommande [i] = panierArticle[i].id
+	for (let i = 0; i < panierArticle.length; i++) {
+		idCommande[i] = panierArticle[i].id;
 	}
 	console.log(idCommande);
-	
+
 	const order = {
 		contact: {
-			firstName: "prenom",
-			lastName: "nom",
-			address: "adresse",
-			city: "ville",
-			email: "email"
+			firstName: 'prenom',
+			lastName: 'nom',
+			address: 'adresse',
+			city: 'ville',
+			email: 'email'
 		},
-		
-  		products: idCommande,
-			}
-				
-		console.log(order),	
-	fetch('http://localhost:3000/api/products/order', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(order),
 
-	})
-		.then((response) => {
-			return response.json();
+		products: idCommande
+	};
+
+	console.log(order),
+		fetch('http://localhost:3000/api/products/order', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(order)
 		})
-		.then((data) => {
-			console.log(data)
-			localStorage.setItem('idCommande', data.orderId);
-			 localStorage.clear();
-			 document.location.href = "confirmation.html";
-		})
-	 
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+				localStorage.setItem('idCommande', data.orderId);
+				/*
+				localStorage.clear();*/
+				document.location.href = 'confirmation.html';
+			})
+			.catch((error) => {
+				alert('Erreur: ' + error.message);
+			});
 });
-	
-
-
-	
-
-	
-       
-		
-
-	
-        
-
-		
-
-	
-	
-	
-
