@@ -1,98 +1,29 @@
-//-------------------------------formulaire----------------------------------//
 const formulaire = document.querySelector('.cart__order__form');
-//----------------------------validation prenom----------------------------//
-let prenom = document.getElementById('firstName');
-prenom.addEventListener('change', function() {
+console.log(formulaire);
+
+formulaire.firstName.addEventListener('change', function() {
 	validationPrenom(this);
 });
-function validationPrenom() {
-	let prenomRegExp = /^[a-zA-Z\-]{2,20}$/;
-	let testPrenom = prenomRegExp.test(prenom.value);
-	console.log(testPrenom);
-	let p = prenom.nextElementSibling;
-	if (testPrenom == '') {
-		p.innerHTML = ` non valide`;
-	} else {
-		p.innerHTML = `valide`;
-	}
-}
-//------------------------validation Nom----------------------------//
-let nom = document.getElementById('lastName');
-nom.addEventListener('change', function() {
+formulaire.lastName.addEventListener('change', function() {
 	validationNom(this);
 });
 
-function validationNom() {
-	let nomRegExp = /^[a-zA-Z\-]{2,20}$/;
-	let testNom = nomRegExp.test(nom.value);
-	console.log(testNom);
-	let p = nom.nextElementSibling;
-	if (testNom == '') {
-		p.innerHTML = ` non valide`;
-	} else {
-		p.innerHTML = `valide`;
-	}
-}
-//------------------------------validation adresse--------------------/
-let adresse = document.getElementById('address');
-adresse.addEventListener('change', function() {
+formulaire.address.addEventListener('change', function() {
 	validationAdresse(this);
 });
 
-function validationAdresse() {
-	let adresseRegExp = /^[0-9]+[A-Za-z\s]{2,40}$/;
-	let testAdresse = adresseRegExp.test(adresse.value);
-	console.log(testAdresse);
-	let p = adresse.nextElementSibling;
-	if (testAdresse == '') {
-		p.innerHTML = `non valide`;
-	} else {
-		p.innerHTML = `valide`;
-	}
-}
-
-//------------------------------validation ville--------------------//
-let ville = document.getElementById('city');
-ville.addEventListener('change', function() {
+formulaire.city.addEventListener('change', function() {
 	validationVille(this);
 });
-
-const validationVille = function(ville) {
-	let villeRegExp = /^[A-Za-z\s-]{2,40}$/;
-	let testVille = villeRegExp.test(ville.value);
-	console.log(testVille);
-	let p = ville.nextElementSibling;
-	if (testVille == '') {
-		p.innerHTML = `non valide`;
-	} else {
-		p.innerHTML = `valide`;
-	}
-};
-
-//------------------------------validation email--------------------//
-let email = document.getElementById('email');
-ville.addEventListener('change', function() {
-	validationVille(this);
+formulaire.email.addEventListener('change', function() {
+	validationEmail(this);
 });
+//---------------ecoute de l'envoi---------------------------//
+formulaire.addEventListener('submit', (event) => {
+	event.preventDefault();
+	if (validationPrenom(formulaire.firstName) && validationNom(formulaire.lastName));
+	if (validationAdresse) formulaire.address && validationVille(formulaire.city) && validationEmail(formulaire.email);
 
-const validationEmail = function(email) {
-	let emailRegExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-	let testEmail = emailRegExp.test(email.value);
-	console.log(testEmail);
-	let p = email.nextElementSibling;
-	if (testEmail == '') {
-		p.innerHTML = `email non valide`;
-	} else {
-		p.innerHTML = `email valide`;
-	}
-};
-
-//-------------------------envoi du formulaire----------------------------//
-
-const boutonValidation = document.querySelector('#order');
-
-boutonValidation.addEventListener('click', (event) => {
-	//--------------------------envoi dans le localStorage---------------------//
 	const client = {
 		prenom: document.querySelector('#firstName').value,
 		nom: document.querySelector('#lastName').value,
@@ -100,7 +31,6 @@ boutonValidation.addEventListener('click', (event) => {
 		ville: document.querySelector('#city').value,
 		email: document.querySelector('#email').value
 	};
-	event.preventDefault();
 	//----------------------------mettre le formulaire dans le localStorage-------------------//
 	localStorage.setItem('client', JSON.stringify(client));
 
@@ -146,3 +76,76 @@ boutonValidation.addEventListener('click', (event) => {
 				alert('Erreur: ' + error.message);
 			});
 });
+//------------------------------------validation prenom------------------------------//
+const validationPrenom = function(inputFirstName) {
+	let prenomRegExp = new RegExp(/^[a-zA-Z\-]{2,20}$/);
+	let testPrenom = prenomRegExp.test(inputFirstName.value);
+	console.log(testPrenom);
+	let p = inputFirstName.nextElementSibling;
+	if (testPrenom) {
+		p.innerHTML = `valide`;
+		return true;
+	} else {
+		p.innerHTML = `non valide`;
+		return false;
+	}
+};
+
+//-------------------------------------validation Nom--------------------------------//
+const validationNom = function(inputLastName) {
+	let nomRegExp = new RegExp(/^[a-zA-Z\-]{2,20}$/);
+	let testNom = nomRegExp.test(inputLastName.value);
+	console.log(testNom);
+	let p = inputLastName.nextElementSibling;
+	if (testNom) {
+		p.innerHTML = `valide`;
+		return true;
+	} else {
+		p.innerHTML = `non valide`;
+		return false;
+	}
+};
+//------------------------------------validation adresse------------------------------//
+const validationAdresse = function(inputAddress) {
+	let adresseRegExp = new RegExp(/^[0-9]+[A-Za-z\s]{2,40}$/);
+	let testAdresse = adresseRegExp.test(inputAddress.value);
+	console.log(testAdresse);
+	let p = inputAddress.nextElementSibling;
+	if (testAdresse) {
+		p.innerHTML = `valide`;
+		return true;
+	} else {
+		p.innerHTML = `non valide`;
+		return false;
+	}
+};
+//------------------------------------validation ville------------------------------//
+
+const validationVille = function(inputCity) {
+	let villeRegExp = new RegExp(/^[A-Za-z\s-]{2,40}$/);
+	let testVille = villeRegExp.test(inputCity.value);
+	console.log(testVille);
+	let p = inputCity.nextElementSibling;
+	if (testVille) {
+		p.innerHTML = `valide`;
+		return true;
+	} else {
+		p.innerHTML = `non valide`;
+		return false;
+	}
+};
+//------------------------------------validation email------------------------------//
+
+const validationEmail = function(inputEmail) {
+	let emailRegExp = new RegExp(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/);
+	let testEmail = emailRegExp.test(inputEmail.value);
+	console.log(testEmail);
+	let p = inputEmail.nextElementSibling;
+	if (testEmail) {
+		p.innerHTML = `valide`;
+		return true;
+	} else {
+		p.innerHTML = `non valide`;
+		return false;
+	}
+};

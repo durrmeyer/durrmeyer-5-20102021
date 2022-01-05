@@ -58,6 +58,7 @@ button_envoyer.addEventListener('click', (event) => {
 
 	if (panierArticle == null) {
 		console.log('votre panier est vide');
+		panierArticle = [];
 	} else {
 		for (let i in panierArticle) {
 			//---------------------------------------produit identique trouvé alors on met à jour la quantité-----------//
