@@ -22,7 +22,10 @@ h2 {
 	padding-top: 35px;
 	margin-bottom: 30px;
 }
-
+.cart p{
+	text-align: center;
+	font-size: 22px;
+}
 .cart__item__img {
 	width: 25%;
 }
@@ -39,6 +42,7 @@ h2 {
 .cart__item__content__titlePrice {
 	display: flex;
 	justify-content: space-between;
+    align-items: baseline;
 }
 .cart__item__content__titlePrice h2,
 .cart__item__content__titlePrice p {
@@ -46,6 +50,7 @@ h2 {
 }
 .cart__item__content__settings p {
 	margin: 0;
+	
 }
 .cart__item__content__settings input {
 	color: var(--footer-secondary-color);
@@ -55,6 +60,7 @@ h2 {
 	border: 1px solid #767676;
 	text-align: center;
 	text-align-last: center;
+
 }
 .cart__item__content__settings input:focus {
 	outline: none;
@@ -68,10 +74,15 @@ h2 {
 }
 .cart__item__content__settings__delete p {
 	display: inline;
+	
+}
+.cart__item__content__settings__delete{
+	margin-top: 45px;
 }
 .cart__item__content__settings__delete p:hover {
 	cursor: pointer;
 	font-weight: 700;
+	
 }
 
 /*******/

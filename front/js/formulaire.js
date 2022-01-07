@@ -18,65 +18,74 @@ formulaire.city.addEventListener('change', function() {
 formulaire.email.addEventListener('change', function() {
 	validationEmail(this);
 });
-//---------------ecoute de l'envoi---------------------------//
+//---------------é-----------------------coute de l'envoi-----------------------------------------//
 formulaire.addEventListener('submit', (event) => {
 	event.preventDefault();
-	if (validationPrenom(formulaire.firstName) && validationNom(formulaire.lastName));
-	if (validationAdresse) formulaire.address && validationVille(formulaire.city) && validationEmail(formulaire.email);
-
-	const client = {
-		prenom: document.querySelector('#firstName').value,
-		nom: document.querySelector('#lastName').value,
-		adresse: document.querySelector('#address').value,
-		ville: document.querySelector('#city').value,
-		email: document.querySelector('#email').value
-	};
-	//----------------------------mettre le formulaire dans le localStorage-------------------//
-	localStorage.setItem('client', JSON.stringify(client));
-
-	//--------------------------récupération du ou des ID-------------------------//
-
-	let idCommande = [];
-	for (let i = 0; i < panierArticle.length; i++) {
-		idCommande[i] = panierArticle[i].id;
+	if (validationPrenom(formulaire.firstName) && validationNom(formulaire.lastName)) {
+		if (
+			validationAdresse(formulaire.address) &&
+			validationVille(formulaire.city) &&
+			validationEmail(formulaire.email)
+		) {
+			commandeEnregistre();
+		}
+	} else {
+		console.log(' tous les champs ne sont pas valide');
 	}
-	console.log(idCommande);
+	function commandeEnregistre() {
+		const client = {
+			prenom: document.querySelector('#firstName').value,
+			nom: document.querySelector('#lastName').value,
+			adresse: document.querySelector('#address').value,
+			ville: document.querySelector('#city').value,
+			email: document.querySelector('#email').value
+		};
+		//--------------------------------mettre le formulaire dans le localStorage-------------------//
+		localStorage.setItem('client', JSON.stringify(client));
 
-	const order = {
-		contact: {
-			firstName: 'prenom',
-			lastName: 'nom',
-			address: 'adresse',
-			city: 'ville',
-			email: 'email'
-		},
+		//-----------------------------------récupération du ou des ID--------------------------------//
 
-		products: idCommande
-	};
+		let idCommande = [];
+		for (let i = 0; i < panierArticle.length; i++) {
+			idCommande[i] = panierArticle[i].id;
+		}
+		console.log(idCommande);
 
-	console.log(order),
-		fetch('http://localhost:3000/api/products/order', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
+		const order = {
+			contact: {
+				firstName: 'prenom',
+				lastName: 'nom',
+				address: 'adresse',
+				city: 'ville',
+				email: 'email'
 			},
-			body: JSON.stringify(order)
-		})
-			.then((response) => {
-				return response.json();
+
+			products: idCommande
+		};
+
+		console.log(order),
+			fetch('http://localhost:3000/api/products/order', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(order)
 			})
-			.then((data) => {
-				console.log(data);
-				localStorage.setItem('idCommande', data.orderId);
-				/*
-				localStorage.clear();*/
-				document.location.href = 'confirmation.html';
-			})
-			.catch((error) => {
-				alert('Erreur: ' + error.message);
-			});
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					console.log(data);
+					localStorage.setItem('idCommande', data.orderId);
+
+					document.location.href = 'confirmation.html';
+				})
+				.catch((error) => {
+					alert('Erreur: ' + error.message);
+				});
+	}
 });
-//------------------------------------validation prenom------------------------------//
+//------------------------------------validation prenom----------------------------------------//
 const validationPrenom = function(inputFirstName) {
 	let prenomRegExp = new RegExp(/^[a-zA-Z\-]{2,20}$/);
 	let testPrenom = prenomRegExp.test(inputFirstName.value);
@@ -107,7 +116,7 @@ const validationNom = function(inputLastName) {
 };
 //------------------------------------validation adresse------------------------------//
 const validationAdresse = function(inputAddress) {
-	let adresseRegExp = new RegExp(/^[0-9]+[A-Za-z\s]{2,40}$/);
+	let adresseRegExp = new RegExp(/^[0-9]+[A-Za-z._\s]{2,40}$/);
 	let testAdresse = adresseRegExp.test(inputAddress.value);
 	console.log(testAdresse);
 	let p = inputAddress.nextElementSibling;
@@ -137,7 +146,7 @@ const validationVille = function(inputCity) {
 //------------------------------------validation email------------------------------//
 
 const validationEmail = function(inputEmail) {
-	let emailRegExp = new RegExp(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/);
+	let emailRegExp = new RegExp(/^\w+@[a-zA-Z._]+?\.[a-zA-Z]{2,3}$/);
 	let testEmail = emailRegExp.test(inputEmail.value);
 	console.log(testEmail);
 	let p = inputEmail.nextElementSibling;
