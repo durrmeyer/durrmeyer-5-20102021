@@ -78,6 +78,13 @@ h2 {
 }
 .cart__item__content__settings__delete{
 	margin-top: 45px;
+ 
+}
+.cart__item__content__settings__delete button{
+border-radius: 14px;
+    height: 32px;
+    width: 108px;
+    font-size: 16px;
 }
 .cart__item__content__settings__delete p:hover {
 	cursor: pointer;
@@ -123,6 +130,7 @@ h2 {
 	outline: none;
 }
 .cart__order__form__question p {
+	display: flex;
 	margin: 0;
 	color: #fbbcbc;
 	font-size: 15px;

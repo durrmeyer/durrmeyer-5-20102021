@@ -140,7 +140,7 @@ const validationVille = function(inputCity) {
 //------------------------------------validation email------------------------------//
 
 const validationEmail = function(inputEmail) {
-	let emailRegExp = new RegExp(/^\w+@[a-zA-Z._]+?\.[a-zA-Z]{2,3}$/);
+	let emailRegExp = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
 	let testEmail = emailRegExp.test(inputEmail.value);
 	console.log(testEmail);
 	let p = inputEmail.nextElementSibling;
