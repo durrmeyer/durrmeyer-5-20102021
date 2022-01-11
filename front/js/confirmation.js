@@ -1,5 +1,4 @@
-let orderId = localStorage.getItem('idCommande');
-console.log(orderId);
-document.getElementById('orderId').innerText = orderId;
-
+let params = new URL(document.location).searchParams;
+let orderId = params.get('id');
+document.querySelector('#orderId').innerText = orderId;
 localStorage.clear();

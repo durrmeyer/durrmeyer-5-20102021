@@ -9,13 +9,13 @@ const id = urlSearchParams.get('id');
 async function getProduct(id) {
 	const response = await fetch(`http://localhost:3000/api/products/${id}`);
 	return await response.json();
+	console.log(response);
 }
 
 /*** affiche le produit dans la page produit ***/
 
 getProduct(id).then((product) => {
-	document.querySelector('#imageUrl').innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
-
+	document.querySelector('.item__img').innerHTML = `<img src="${product.imageUrl}" alt="Photographie d'un canapé">`;
 	document.querySelector('#title').innerText = product.name;
 	document.querySelector('#price').innerText = product.price;
 	document.querySelector('#description').innerText = product.description;
@@ -29,8 +29,8 @@ getProduct(id).then((product) => {
 		option.innerText = color;
 		selectColors.appendChild(option);
 	}
-	console.log(selectColors);
 });
+
 //-------------------------------------- choix de la quantité----------------------------------------------//
 const optionQuantite = document.querySelector('#quantity');
 const optionColor = document.querySelector('#colors');
@@ -44,12 +44,13 @@ button_envoyer.addEventListener('click', (event) => {
 
 	const optionProduct = {
 		id: id,
-		imageUrl: document.querySelector('#imageUrl').innerHTML,
+		imageUrl: document.querySelector('.item__img').innerHTML,
 		name: document.querySelector('#title').innerText,
 		price: parseInt(document.querySelector('#price').innerText),
 		color: optionColor.value,
 		quantity: parseInt(optionQuantite.value)
 	};
+
 	//---------------------------------- enregistrement dans le local Storage-------------------------------//
 
 	let panierArticle = JSON.parse(localStorage.getItem('panier'));
@@ -57,7 +58,6 @@ button_envoyer.addEventListener('click', (event) => {
 	let articleTrouve = false;
 
 	if (panierArticle == null) {
-		console.log('votre panier est vide');
 		panierArticle = [];
 	} else {
 		for (let i in panierArticle) {
@@ -69,7 +69,7 @@ button_envoyer.addEventListener('click', (event) => {
 			}
 		}
 	}
-	console.log(panierArticle);
+
 	//-----------------------------------------mettre à jour le panier-------------------------------//
 	if (articleTrouve == false) {
 		panierArticle.push(optionProduct);

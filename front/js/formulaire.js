@@ -1,5 +1,4 @@
 const formulaire = document.querySelector('.cart__order__form');
-console.log(formulaire);
 
 formulaire.firstName.addEventListener('change', function() {
 	validationPrenom(this);
@@ -45,44 +44,39 @@ formulaire.addEventListener('submit', (event) => {
 
 		//-----------------------------------récupération du ou des ID--------------------------------//
 
-		let idCommande = [];
+		let idProduit = [];
 		for (let i = 0; i < panierArticle.length; i++) {
-			idCommande[i] = panierArticle[i].id;
+			idProduit[i] = panierArticle[i].id;
 		}
-		console.log(idCommande);
-
+		console.log(panierArticle.length);
 		const order = {
 			contact: {
-				firstName: 'prenom',
-				lastName: 'nom',
-				address: 'adresse',
-				city: 'ville',
-				email: 'email'
+				firstName: 'client.prenom',
+				lastName: 'client.nom',
+				address: 'client.adresse',
+				city: 'client.ville',
+				email: 'client.email'
 			},
 
-			products: idCommande
+			products: idProduit
 		};
-
-		console.log(order),
-			fetch('http://localhost:3000/api/products/order', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(order)
+		console.log(order);
+		fetch('http://localhost:3000/api/products/order', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(order)
+		})
+			.then((response) => {
+				return response.json();
 			})
-				.then((response) => {
-					return response.json();
-				})
-				.then((data) => {
-					console.log(data);
-					localStorage.setItem('idCommande', data.orderId);
-
-					document.location.href = 'confirmation.html';
-				})
-				.catch((error) => {
-					alert('Erreur: ' + error.message);
-				});
+			.then((data) => {
+				document.location.href = 'confirmation.html?id= ' + data.orderId;
+			})
+			.catch((error) => {
+				alert('Erreur: ' + error.message);
+			});
 	}
 });
 //------------------------------------validation prenom----------------------------------------//

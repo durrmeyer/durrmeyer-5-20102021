@@ -1,12 +1,11 @@
 //---------------------------------- recupération dans le local Storage----------------------------
 const panierArticle = JSON.parse(localStorage.getItem('panier'));
 const articles = document.querySelector('#cart__items');
-
-if (panierArticle === null) {
+if (panierArticle == null || panierArticle.length == 0) {
 	articles.innerHTML = `
 			<p> Votre panier est vide </p>
     		`;
-	console.log(articles);
+	/*document.querySelector('.cart__order').style.display = none;*/
 } else {
 	//----------------------------------Affichage des produits selectionnés-----------------------------//
 	for (let i = 0; i < panierArticle.length; i++) {
@@ -14,8 +13,9 @@ if (panierArticle === null) {
     <section class="cart" id="cart__items">
            <article class="cart__item" data-id="${panierArticle[i].id}">
               <div class="cart__item__img">
-             ${panierArticle[i].imageUrl}         
+           ${panierArticle[i].imageUrl}     
             </div>
+    
               <div class="cart__item__content">
                 <div class="cart__item__content__titlePrice">
                   <h2>${panierArticle[i].name}</h2>
@@ -33,17 +33,15 @@ if (panierArticle === null) {
                       max="100"
                       value="${panierArticle[i].quantity}"
                     />
-                    
-                  </div>
+                </div>
                   <div class="cart__item__content__settings__delete">
                     <button class="deleteItem">Supprimer</button>
                   </div>
                 </div>
              </div>
             </article>
-          </section>
-         
-   `;
+            
+          </section >`;
 	}
 }
 
@@ -57,11 +55,11 @@ for (let i = 0; i < boutons.length; i++) {
 
 		if (panierArticle.id === panierArticle.id && panierArticle.color === panierArticle.color) {
 			panierArticle.splice(i, 1);
+			document.location.reload();
 			localStorage.setItem('panier', JSON.stringify(panierArticle));
 		} else {
 			panierArticle = false;
 		}
-		document.location.reload();
 	});
 }
 
@@ -77,8 +75,6 @@ for (let i = 0; i < choixArticles.length; i++) {
 		article[i].setAttribute('value', article[i].value);
 		panierArticle[i].quantity = article[i].value;
 		localStorage.setItem('panier', JSON.stringify(panierArticle));
-
-		console.log(article[i]);
 	});
 }
 
@@ -88,31 +84,25 @@ let totalArticle = [];
 
 const total = document.getElementById('totalPrice');
 const quantite = document.getElementById('totalQuantity');
+if (panierArticle != null && panierArticle.length > 0) {
+	for (let p = 0; p < panierArticle.length; p++) {
+		let quantiteArticle = panierArticle[p].quantity++;
 
-for (let p = 0; p < panierArticle.length; p++) {
-	let quantiteArticle = panierArticle[p].quantity++;
+		totalArticle.push(quantiteArticle);
 
-	totalArticle.push(quantiteArticle);
+		let prixArticle = panierArticle[p].price * quantiteArticle;
 
-	let prixArticle = panierArticle[p].price * quantiteArticle;
-
-	totalPanier.push(prixArticle);
+		totalPanier.push(prixArticle);
+	}
 }
 
 //------------------------------------------sommes total du panier-----------------------------------------------//
-const prixTotal = totalPanier.reduce((acc, x) => acc + x);
+const prixTotal = totalPanier.reduce((acc, x) => acc + x, 0);
 
-const articleTotal = totalArticle.reduce((acc, x) => acc + x);
+const articleTotal = totalArticle.reduce((acc, x) => acc + x, 0);
 
 const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
 const somme = totalPanier.reduce(reducer, 0);
-
-total.innerHTML = `
-     <div class="cart__price">
-             <p>
-               Total <span id="totalQuantity">${articleTotal}</span> articles :
-               <span id="totalPrice">${prixTotal}</span> €
-             </p>
-           </div>
-     `;
+quantite.innerText = articleTotal;
+total.innerText = prixTotal;
