@@ -14,7 +14,7 @@ getProduct('products').then((product) => {
 	for (let i = 0; i < product.length; i++) {
 		let products = document.getElementById('items');
 		products.innerHTML += ` <article>
-              <a id="${product[i]._id}" href="/front/html/product.html?id=${product[i]._id}"> 
+              <a id="${product[i]._id}" href="product.html?id=${product[i]._id}"> 
                 <img src="${product[i].imageUrl}" alt="${product[i].altTxt}">
                 <h3 class="productName">${product[i].name}</h3>
                  <p>

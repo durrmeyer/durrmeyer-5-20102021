@@ -17,7 +17,7 @@ formulaire.city.addEventListener('change', function() {
 formulaire.email.addEventListener('change', function() {
 	validationEmail(this);
 });
-//---------------é-----------------------coute de l'envoi-----------------------------------------//
+//--------------------------------------écoute de l'envoi-----------------------------------------//
 formulaire.addEventListener('submit', (event) => {
 	event.preventDefault();
 	if (validationPrenom(formulaire.firstName) && validationNom(formulaire.lastName)) {

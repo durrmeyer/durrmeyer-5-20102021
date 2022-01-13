@@ -58,8 +58,9 @@ for (let i = 0; i < boutons.length; i++) {
 
 		if (panierArticle.id === panierArticle.id && panierArticle.color === panierArticle.color) {
 			panierArticle.splice(i, 1);
-			document.location.reload();
+
 			localStorage.setItem('panier', JSON.stringify(panierArticle));
+			document.location.reload();
 		} else {
 			panierArticle = false;
 		}
@@ -78,6 +79,7 @@ for (let i = 0; i < choixArticles.length; i++) {
 		article[i].setAttribute('value', article[i].value);
 		panierArticle[i].quantity = article[i].value;
 		localStorage.setItem('panier', JSON.stringify(panierArticle));
+		document.location.reload();
 	});
 }
 
