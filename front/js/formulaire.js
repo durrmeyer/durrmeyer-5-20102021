@@ -41,7 +41,7 @@ formulaire.addEventListener('submit', (event) => {
 		};
 		//--------------------------------mettre le formulaire dans le localStorage-------------------//
 		localStorage.setItem('client', JSON.stringify(client));
-
+		window.location.assign('confirmation.html');
 		//-----------------------------------récupération du ou des ID--------------------------------//
 
 		let idProduit = [];
@@ -81,7 +81,7 @@ formulaire.addEventListener('submit', (event) => {
 });
 //------------------------------------validation prenom----------------------------------------//
 const validationPrenom = function(inputFirstName) {
-	let prenomRegExp = new RegExp(/^[a-zA-Z\-]{2,20}$/);
+	let prenomRegExp = new RegExp(/^[a-zA-Z\-]{2,30}$/);
 	let testPrenom = prenomRegExp.test(inputFirstName.value);
 	console.log(testPrenom);
 	let p = inputFirstName.nextElementSibling;
@@ -89,14 +89,15 @@ const validationPrenom = function(inputFirstName) {
 		p.innerHTML = `valide`;
 		return true;
 	} else {
-		p.innerHTML = `non valide`;
+		p.innerHTML = `merci de bien vouloir rentrer votre prénom`;
 		return false;
 	}
+	console.log(validationPrenom);
 };
 
 //-------------------------------------validation Nom--------------------------------//
 const validationNom = function(inputLastName) {
-	let nomRegExp = new RegExp(/^[a-zA-Z\-]{2,20}$/);
+	let nomRegExp = new RegExp(/^[a-zA-Z\-]{2,30}$/);
 	let testNom = nomRegExp.test(inputLastName.value);
 	console.log(testNom);
 	let p = inputLastName.nextElementSibling;
@@ -104,13 +105,13 @@ const validationNom = function(inputLastName) {
 		p.innerHTML = `valide`;
 		return true;
 	} else {
-		p.innerHTML = `non valide`;
+		p.innerHTML = `merci de bien vouloir rentrer votre nom`;
 		return false;
 	}
 };
 //------------------------------------validation adresse------------------------------//
 const validationAdresse = function(inputAddress) {
-	let adresseRegExp = new RegExp(/^[0-9]+[A-Za-z._\s]{2,40}$/);
+	let adresseRegExp = new RegExp(/^[0-9]+[A-Za-z._\s]{2,60}$/);
 	let testAdresse = adresseRegExp.test(inputAddress.value);
 	console.log(testAdresse);
 	let p = inputAddress.nextElementSibling;

@@ -85,6 +85,5 @@ button_envoyer.addEventListener('click', (event) => {
 			panierArticle.push(optionProduct);
 		}
 		localStorage.setItem('panier', JSON.stringify(panierArticle));
-		/*window.location.assign('cart.html');*/
 	}
 });
