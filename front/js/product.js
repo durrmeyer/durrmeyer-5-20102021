@@ -56,7 +56,6 @@ button_envoyer.addEventListener('click', (event) => {
 			id: id,
 			imageUrl: document.querySelector('.item__img').innerHTML,
 			name: document.querySelector('#title').innerText,
-			price: parseInt(document.querySelector('#price').innerText),
 			color: optionColor.value,
 			quantity: parseInt(optionQuantite.value)
 		};

@@ -47,6 +47,7 @@ formulaire.addEventListener('submit', (event) => {
 		let idProduit = [];
 		for (let i = 0; i < panierArticle.length; i++) {
 			idProduit[i] = panierArticle[i].id;
+			console.log('idProduit : ', idProduit);
 		}
 		console.log(panierArticle.length);
 		const order = {
