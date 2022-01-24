@@ -73,10 +73,8 @@ if (panierArticle == null || panierArticle.length == 0) {
 				}
 				//--------------------------------------------------- mofification du nombre d'articles------------------------//
 				const choixArticles = document.querySelectorAll('.itemQuantity');
-				console.log(choixArticles);
 
 				const article = document.querySelectorAll('input[type =number]');
-				console.log(article);
 
 				for (let i = 0; i < choixArticles.length; i++) {
 					choixArticles[i].addEventListener('change', (event) => {
@@ -94,17 +92,14 @@ if (panierArticle == null || panierArticle.length == 0) {
 				let articleTotal = 0;
 
 				const quantite = document.getElementById('totalQuantity');
-				console.log(quantite);
 
 				const total = document.getElementById('totalPrice');
-				console.log(total);
-				console.log(panierArticle);
 
 				if (panierArticle != null && panierArticle.length > 0) {
 					sommeTotal = 0;
 					for (let p = 0; p < panierArticle.length; p++) {
 						let quantiteArticle = panierArticle[p].quantity;
-						console.log(quantiteArticle);
+
 						totalArticle.push(quantiteArticle);
 
 						/*-------	"return article._id == panierArticle[p].id;" Ce bout de code permet de sortir de la liste "listeArticle" tous les articles
