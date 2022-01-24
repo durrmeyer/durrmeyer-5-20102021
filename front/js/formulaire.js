@@ -29,7 +29,6 @@ formulaire.addEventListener('submit', (event) => {
 			commandeEnregistre();
 		}
 	} else {
-		console.log(' tous les champs ne sont pas valide');
 	}
 	function commandeEnregistre() {
 		const client = {
@@ -42,6 +41,7 @@ formulaire.addEventListener('submit', (event) => {
 		//--------------------------------mettre le formulaire dans le localStorage-------------------//
 		localStorage.setItem('client', JSON.stringify(client));
 		window.location.assign('confirmation.html');
+
 		//-----------------------------------récupération du ou des ID--------------------------------//
 
 		let idProduit = [];
@@ -93,7 +93,6 @@ const validationPrenom = function(inputFirstName) {
 		p.innerHTML = `merci de bien vouloir rentrer votre prénom`;
 		return false;
 	}
-	console.log(validationPrenom);
 };
 
 //-------------------------------------validation Nom--------------------------------//
@@ -112,7 +111,7 @@ const validationNom = function(inputLastName) {
 };
 //------------------------------------validation adresse------------------------------//
 const validationAdresse = function(inputAddress) {
-	let adresseRegExp = new RegExp(/^[0-9]+[A-Za-z._\s]{2,60}$/);
+	let adresseRegExp = new RegExp(/^[#.0-9a-zA-Z\s,-]{2,30}$/);
 	let testAdresse = adresseRegExp.test(inputAddress.value);
 	console.log(testAdresse);
 	let p = inputAddress.nextElementSibling;

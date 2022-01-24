@@ -2,7 +2,7 @@
 const panierArticle = JSON.parse(localStorage.getItem('panier'));
 const articles = document.querySelector('#cart__items');
 
-let listArticle = []; //ajout
+let listeArticle = []; //ajout
 
 if (panierArticle == null || panierArticle.length == 0) {
 	articles.innerHTML = `
@@ -12,13 +12,12 @@ if (panierArticle == null || panierArticle.length == 0) {
 
 	cache.style.display = 'none';
 } else {
-	/*let sommeTotal = 0;*/
 	//----------------------------------Affichage des produits selectionnés-----------------------------//
 	for (let i = 0; i < panierArticle.length; i++) {
 		fetch(`http://localhost:3000/api/products/${panierArticle[i].id}`)
 			.then((response) => response.json())
 			.then((articleCatalogue) => {
-				listArticle.push(articleCatalogue); //ajout
+				listeArticle.push(articleCatalogue); //ajout
 				articles.innerHTML += `
     <section class="cart" id="cart__items">
            <article class="cart__item" data-id="${panierArticle[i].id}">
@@ -108,12 +107,12 @@ if (panierArticle == null || panierArticle.length == 0) {
 						console.log(quantiteArticle);
 						totalArticle.push(quantiteArticle);
 
-						/*-------	"return article._id == panierArticle[p].id;" Ce bout de code permet de ressortir de la liste "listArticle" tous les articles
+						/*-------	"return article._id == panierArticle[p].id;" Ce bout de code permet de sortir de la liste "listeArticle" tous les articles
 			qui ont le même id que l'élément dans panierArticle.
 			L'id est unique, donc il y aura toujours un seul élément trié.
-			La fonction "Filter" renvoie une liste d'éléments, donc je mets un "[0]" à la fin pour récupérer le premier élément de ma liste (qui est un article). 
----------						*/
-						let article = listArticle.filter((article) => {
+			La fonction "Filter" renvoi une liste d'éléments, donc je mets un "[0]" à la fin pour récupérer le premier élément de ma liste (qui est un article). 
+---------*/
+						let article = listeArticle.filter((article) => {
 							return article._id == panierArticle[p].id;
 						})[0];
 						//------------------------------------------sommes total du panier-----------------------------------------------//
@@ -125,6 +124,9 @@ if (panierArticle == null || panierArticle.length == 0) {
 				//------------------------------------------affichage de la somme et du nombre d'articles-----------------------------------------------//
 				quantite.innerText = articleTotal;
 				total.innerText = sommeTotal;
+			})
+			.catch((error) => {
+				alert('Erreur: ' + error.message);
 			});
 	}
 }

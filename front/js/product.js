@@ -33,7 +33,7 @@ getProduct(id).then((product) => {
 
 //-------------------------------------- choix de la quantité----------------------------------------------//
 const optionQuantite = document.querySelector('#quantity');
-console.log(optionQuantite);
+
 //-------------------------------------- choix de la couleur---------------------------------------------//
 const optionColor = document.querySelector('#colors');
 
