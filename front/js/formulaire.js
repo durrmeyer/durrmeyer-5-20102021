@@ -45,11 +45,11 @@ formulaire.addEventListener('submit', (event) => {
 		//-----------------------------------récupération du ou des ID--------------------------------//
 
 		let idProduit = [];
+		console.log(idProduit);
 		for (let i = 0; i < panierArticle.length; i++) {
 			idProduit[i] = panierArticle[i].id;
-			console.log('idProduit : ', idProduit);
 		}
-		console.log(panierArticle.length);
+
 		const order = {
 			contact: {
 				firstName: 'client.prenom',
@@ -84,7 +84,6 @@ formulaire.addEventListener('submit', (event) => {
 const validationPrenom = function(inputFirstName) {
 	let prenomRegExp = new RegExp(/^[a-zA-Z\-]{2,30}$/);
 	let testPrenom = prenomRegExp.test(inputFirstName.value);
-	console.log(testPrenom);
 	let p = inputFirstName.nextElementSibling;
 	if (testPrenom) {
 		p.innerHTML = `valide`;
@@ -99,7 +98,6 @@ const validationPrenom = function(inputFirstName) {
 const validationNom = function(inputLastName) {
 	let nomRegExp = new RegExp(/^[a-zA-Z\-]{2,30}$/);
 	let testNom = nomRegExp.test(inputLastName.value);
-	console.log(testNom);
 	let p = inputLastName.nextElementSibling;
 	if (testNom) {
 		p.innerHTML = `valide`;
@@ -113,7 +111,6 @@ const validationNom = function(inputLastName) {
 const validationAdresse = function(inputAddress) {
 	let adresseRegExp = new RegExp(/^[#.0-9a-zA-Z\s,-]{2,30}$/);
 	let testAdresse = adresseRegExp.test(inputAddress.value);
-	console.log(testAdresse);
 	let p = inputAddress.nextElementSibling;
 	if (testAdresse) {
 		p.innerHTML = `valide`;
@@ -128,7 +125,6 @@ const validationAdresse = function(inputAddress) {
 const validationVille = function(inputCity) {
 	let villeRegExp = new RegExp(/^[A-Za-z\s-]{2,40}$/);
 	let testVille = villeRegExp.test(inputCity.value);
-	console.log(testVille);
 	let p = inputCity.nextElementSibling;
 	if (testVille) {
 		p.innerHTML = `valide`;
@@ -143,7 +139,6 @@ const validationVille = function(inputCity) {
 const validationEmail = function(inputEmail) {
 	let emailRegExp = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
 	let testEmail = emailRegExp.test(inputEmail.value);
-	console.log(testEmail);
 	let p = inputEmail.nextElementSibling;
 	if (testEmail) {
 		p.innerHTML = `valide`;

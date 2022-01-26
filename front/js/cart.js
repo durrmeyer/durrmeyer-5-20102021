@@ -2,9 +2,7 @@
 const panierArticle = JSON.parse(localStorage.getItem('panier'));
 const articles = document.querySelector('#cart__items');
 
-let listeArticle = []; //ajout
-
-if (panierArticle == null || panierArticle.length == 0) {
+if (panierArticle == null) {
 	articles.innerHTML = `
 			<p> Votre panier est vide </p>
     		`;
@@ -12,12 +10,15 @@ if (panierArticle == null || panierArticle.length == 0) {
 
 	cache.style.display = 'none';
 } else {
+	const quantite = document.getElementById('totalQuantity');
+	const total = document.getElementById('totalPrice');
+	let sommesTotal = 0;
+	let articleTotal = 0;
 	//----------------------------------Affichage des produits selectionnés-----------------------------//
 	for (let i = 0; i < panierArticle.length; i++) {
 		fetch(`http://localhost:3000/api/products/${panierArticle[i].id}`)
 			.then((response) => response.json())
 			.then((articleCatalogue) => {
-				listeArticle.push(articleCatalogue); //ajout
 				articles.innerHTML += `
     <section class="cart" id="cart__items">
            <article class="cart__item" data-id="${panierArticle[i].id}">
@@ -51,8 +52,16 @@ if (panierArticle == null || panierArticle.length == 0) {
             </article>
             
           </section >`;
+
+				let quantiteArticle = panierArticle[i].quantity;
+
+				articleTotal = parseInt(articleTotal) + parseInt(quantiteArticle);
+				sommesTotal = sommesTotal + quantiteArticle * articleCatalogue.price;
+
+				quantite.innerText = articleTotal;
+				total.innerText = sommesTotal;
 			})
-			.then((sommeTotal) => {
+			.then(() => {
 				//----------------------------------------  suppression d'un article------------------------------------//
 				let boutons = document.querySelectorAll('.deleteItem');
 
@@ -71,6 +80,7 @@ if (panierArticle == null || panierArticle.length == 0) {
 						}
 					});
 				}
+
 				//--------------------------------------------------- mofification du nombre d'articles------------------------//
 				const choixArticles = document.querySelectorAll('.itemQuantity');
 
@@ -87,41 +97,6 @@ if (panierArticle == null || panierArticle.length == 0) {
 						document.location.reload();
 					});
 				}
-				//------------------------------------------------------quantité * le prix -----------------------------//
-				let totalArticle = [];
-				let articleTotal = 0;
-
-				const quantite = document.getElementById('totalQuantity');
-
-				const total = document.getElementById('totalPrice');
-
-				if (panierArticle != null && panierArticle.length > 0) {
-					sommeTotal = 0;
-					for (let p = 0; p < panierArticle.length; p++) {
-						let quantiteArticle = panierArticle[p].quantity;
-
-						totalArticle.push(quantiteArticle);
-
-						/*-------	"return article._id == panierArticle[p].id;" Ce bout de code permet de sortir de la liste "listeArticle" tous les articles
-			qui ont le même id que l'élément dans panierArticle.
-			L'id est unique, donc il y aura toujours un seul élément trié.
-			La fonction "Filter" renvoi une liste d'éléments, donc je mets un "[0]" à la fin pour récupérer le premier élément de ma liste (qui est un article). 
----------*/
-						let article = listeArticle.filter((article) => {
-							return article._id == panierArticle[p].id;
-						})[0];
-						//------------------------------------------sommes total du panier-----------------------------------------------//
-						articleTotal = Number(articleTotal) + Number(quantiteArticle);
-						sommeTotal = sommeTotal + article.price * quantiteArticle;
-					}
-				}
-
-				//------------------------------------------affichage de la somme et du nombre d'articles-----------------------------------------------//
-				quantite.innerText = articleTotal;
-				total.innerText = sommeTotal;
-			})
-			.catch((error) => {
-				alert('Erreur: ' + error.message);
 			});
 	}
 }

@@ -9,7 +9,6 @@ const id = urlSearchParams.get('id');
 async function getProduct(id) {
 	const response = await fetch(`http://localhost:3000/api/products/${id}`);
 	return await response.json();
-	console.log(response);
 }
 
 /*** affiche le produit dans la page produit ***/
