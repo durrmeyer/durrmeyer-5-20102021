@@ -38,30 +38,27 @@ formulaire.addEventListener('submit', (event) => {
 			ville: document.querySelector('#city').value,
 			email: document.querySelector('#email').value
 		};
-		//--------------------------------mettre le formulaire dans le localStorage-------------------//
-		localStorage.setItem('client', JSON.stringify(client));
-		window.location.assign('confirmation.html');
 
 		//-----------------------------------récupération du ou des ID--------------------------------//
 
 		let idProduit = [];
-		console.log(idProduit);
+
 		for (let i = 0; i < panierArticle.length; i++) {
 			idProduit[i] = panierArticle[i].id;
 		}
 
 		const order = {
 			contact: {
-				firstName: 'client.prenom',
-				lastName: 'client.nom',
-				address: 'client.adresse',
-				city: 'client.ville',
-				email: 'client.email'
+				firstName: client.prenom,
+				lastName: client.nom,
+				address: client.adresse,
+				city: client.ville,
+				email: client.email
 			},
 
 			products: idProduit
 		};
-		console.log(order);
+
 		fetch('http://localhost:3000/api/products/order', {
 			method: 'POST',
 			headers: {
@@ -73,7 +70,11 @@ formulaire.addEventListener('submit', (event) => {
 				return response.json();
 			})
 			.then((data) => {
-				document.location.href = 'confirmation.html?id= ' + data.orderId;
+				if (data.orderId) {
+					document.location.href = 'confirmation.html?id= ' + data.orderId;
+				} else {
+					throw "Une erreur s'est produite";
+				}
 			})
 			.catch((error) => {
 				alert('Erreur: ' + error.message);

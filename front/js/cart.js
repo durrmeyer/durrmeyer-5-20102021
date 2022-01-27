@@ -72,8 +72,11 @@ if (panierArticle == null) {
 
 						if (panierArticle.id === panierArticle.id && panierArticle.color === panierArticle.color) {
 							panierArticle.splice(i, 1);
-
-							localStorage.setItem('panier', JSON.stringify(panierArticle));
+							if (panierArticle.length === 0) {
+								localStorage.removeItem('panier');
+							} else {
+								localStorage.setItem('panier', JSON.stringify(panierArticle));
+							}
 							document.location.reload();
 						} else {
 							panierArticle = false;
@@ -90,13 +93,15 @@ if (panierArticle == null) {
 					choixArticles[i].addEventListener('change', (event) => {
 						event.preventDefault();
 						const panierArticle = JSON.parse(localStorage.getItem('panier'));
-						console.log(panierArticle);
 						article[i].setAttribute('value', article[i].value);
 						panierArticle[i].quantity = article[i].value;
 						localStorage.setItem('panier', JSON.stringify(panierArticle));
 						document.location.reload();
 					});
 				}
+			})
+			.catch((error) => {
+				alert('Erreur: ' + error.message);
 			});
 	}
 }
