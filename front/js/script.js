@@ -1,8 +1,8 @@
 /**
  * Gère l'affichage des produits
  */
-
-async function getProduct(product) {
+const products = document.getElementById('items');
+async function getProducts() {
 	let response = await fetch(`http://localhost:3000/api/products`);
 	let data = await response.json();
 	return data;
@@ -10,9 +10,9 @@ async function getProduct(product) {
 /**
  * afficher les produits dans la page
  */
-getProduct('products').then((product) => {
+
+getProducts().then((product) => {
 	for (let i = 0; i < product.length; i++) {
-		let products = document.getElementById('items');
 		products.innerHTML += ` <article>
               <a id="${product[i]._id}" href="product.html?id=${product[i]._id}"> 
                 <img src="${product[i].imageUrl}" alt="${product[i].altTxt}">
