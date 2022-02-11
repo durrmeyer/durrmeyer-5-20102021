@@ -11,9 +11,10 @@ async function getProducts() {
  * afficher les produits dans la page
  */
 
-getProducts().then((product) => {
-	for (let i = 0; i < product.length; i++) {
-		products.innerHTML += ` <article>
+getProducts()
+	.then((product) => {
+		for (let i = 0; i < product.length; i++) {
+			products.innerHTML += ` <article>
               <a id="${product[i]._id}" href="product.html?id=${product[i]._id}"> 
                 <img src="${product[i].imageUrl}" alt="${product[i].altTxt}">
                 <h3 class="productName">${product[i].name}</h3>
@@ -24,5 +25,8 @@ getProducts().then((product) => {
              </a>
             </article>       
              `;
-	}
-});
+		}
+	})
+	.catch((error) => {
+		alert('Erreur: ' + error.message);
+	});

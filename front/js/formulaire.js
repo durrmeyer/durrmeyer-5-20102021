@@ -29,6 +29,7 @@ formulaire.addEventListener('submit', (event) => {
 			commandeEnregistre();
 		}
 	} else {
+		alert('Merci de remplir le formulaire');
 	}
 	function commandeEnregistre() {
 		const client = {
@@ -39,7 +40,7 @@ formulaire.addEventListener('submit', (event) => {
 			email: document.querySelector('#email').value
 		};
 
-		//-----------------------------------récupération du ou des ID--------------------------------//
+		//-----------------------------------récupération de l'ID commande--------------------------------//
 
 		let idProduit = [];
 
@@ -117,7 +118,7 @@ const validationAdresse = function(inputAddress) {
 		p.innerHTML = `valide`;
 		return true;
 	} else {
-		p.innerHTML = `non valide`;
+		p.innerHTML = `votre adresse n'est pas valide`;
 		return false;
 	}
 };
@@ -139,7 +140,9 @@ const validationVille = function(inputCity) {
 
 const validationEmail = function(inputEmail) {
 	let emailRegExp = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+
 	let testEmail = emailRegExp.test(inputEmail.value);
+
 	let p = inputEmail.nextElementSibling;
 	if (testEmail) {
 		p.innerHTML = `valide`;

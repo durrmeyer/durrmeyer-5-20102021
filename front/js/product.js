@@ -13,22 +13,28 @@ async function getProduct(id) {
 
 /*** affiche le produit dans la page produit ***/
 
-getProduct(id).then((product) => {
-	document.querySelector('.item__img').innerHTML = `<img src="${product.imageUrl}" alt="Photographie d'un canapé">`;
-	document.querySelector('#title').innerText = product.name;
-	document.querySelector('#price').innerText = product.price;
-	document.querySelector('#description').innerText = product.description;
-	document.querySelector('title').innerText = product.name;
-	//------------------------------------ choix de la couleur----------------------------------------------//
+getProduct(id)
+	.then((product) => {
+		document.querySelector(
+			'.item__img'
+		).innerHTML = `<img src="${product.imageUrl}" alt="Photographie d'un canapé">`;
+		document.querySelector('#title').innerText = product.name;
+		document.querySelector('#price').innerText = product.price;
+		document.querySelector('#description').innerText = product.description;
+		document.querySelector('title').innerText = product.name;
+		//------------------------------------ choix de la couleur----------------------------------------------//
 
-	const selectColors = document.querySelector('#colors');
-	for (const color of product.colors) {
-		const option = document.createElement('option');
-		option.value = color;
-		option.innerText = color;
-		selectColors.appendChild(option);
-	}
-});
+		const selectColors = document.querySelector('#colors');
+		for (const color of product.colors) {
+			const option = document.createElement('option');
+			option.value = color;
+			option.innerText = color;
+			selectColors.appendChild(option);
+		}
+	})
+	.catch((error) => {
+		alert('Erreur: ' + error.message);
+	});
 
 //-------------------------------------- choix de la quantité----------------------------------------------//
 const optionQuantite = document.querySelector('#quantity');
@@ -41,7 +47,7 @@ const button_envoyer = document.querySelector('#addToCart');
 button_envoyer.addEventListener('click', (event) => {
 	event.preventDefault();
 	if (optionColor.value == '' || optionQuantite.value == 0) {
-		alert('merci de bien remplir les champs');
+		alert('merci de bien choisir une option');
 
 		return false;
 	} else {
@@ -59,7 +65,7 @@ button_envoyer.addEventListener('click', (event) => {
 			quantity: parseInt(optionQuantite.value)
 		};
 
-		//---------------------------------- enregistrement dans le local Storage-------------------------------//
+		//----------------------------------recupérer dans le local Storage-------------------------------//
 
 		let panierArticle = JSON.parse(localStorage.getItem('panier'));
 
